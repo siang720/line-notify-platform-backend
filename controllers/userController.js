@@ -51,6 +51,13 @@ const userController = {
         }
       })
     }
+  },
+  getUser: (req, res) => {
+    User
+      .findByPk(req.params.id)
+      .then(user => {
+        return res.json({ user: user })
+      })
   }
 }
 

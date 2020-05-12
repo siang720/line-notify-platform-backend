@@ -10,5 +10,6 @@ router.get('/init', authenticated, (req, res) => {
 
 router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)
+router.get('/users/:id', userController.getUser)
 
 module.exports = router;
