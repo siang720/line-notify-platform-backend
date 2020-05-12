@@ -58,6 +58,13 @@ const userController = {
       .then(user => {
         return res.json({ user: user })
       })
+  },
+  getCurrentUser: (req, res) => {
+    return res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    })
   }
 }
 

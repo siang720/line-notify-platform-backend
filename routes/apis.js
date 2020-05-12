@@ -10,6 +10,7 @@ router.get('/init', authenticated, (req, res) => {
 
 router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)
-router.get('/users/:id', userController.getUser)
+router.get('/users/:id', authenticated, userController.getUser)
+router.get('/get_current_user', authenticated, userController.getCurrentUser)
 
 module.exports = router;
