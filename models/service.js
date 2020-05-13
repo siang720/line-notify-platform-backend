@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   Service.associate = function (models) {
     Service.belongsTo(models.User)
     Service.hasMany(models.Token)
+    Service.hasMany(models.HistoricalMessage)
   };
   return Service;
 };
