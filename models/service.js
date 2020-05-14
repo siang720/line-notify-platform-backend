@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     clientId: DataTypes.STRING,
     clientSecret: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    subscriptURL: DataTypes.STRING,
+    callbackURL: DataTypes.STRING
   }, {});
   Service.associate = function (models) {
     Service.belongsTo(models.User)
