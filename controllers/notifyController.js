@@ -40,10 +40,21 @@ const notifyController = {
         message: req.body.message,
         sendTime: new Date(),
         ServiceId: req.body.serviceId,
-        sendNum: sendNum
+        sendNum: sendNum,
+        UserId: req.user.id
       })
       // return status
       return res.json({ status: 'success', message: 'server had send notify to every token' })
+    })
+  },
+  getHistoricalMessage: (req, res) => {
+    HistoricalMessage.findAll({
+      where: {
+        UserId: req.user.id
+      },
+      include: [{ model: Service, attributes: ['name'] }]
+    }).then(messages => {
+      return res.json(messages)
     })
   }
 }
