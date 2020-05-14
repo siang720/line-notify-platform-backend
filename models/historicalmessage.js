@@ -4,10 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     message: DataTypes.STRING,
     sendTime: DataTypes.DATE,
     ServiceId: DataTypes.INTEGER,
-    sendNum: DataTypes.INTEGER
+    sendNum: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER
   }, {});
   HistoricalMessage.associate = function (models) {
     HistoricalMessage.belongsTo(models.Service)
+    HistoricalMessage.belongsTo(models.User)
   };
   return HistoricalMessage;
 };
