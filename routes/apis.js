@@ -3,6 +3,7 @@ const router = express.Router()
 const userController = require('../controllers/userController')
 const serviceController = require('../controllers/serviceController')
 const notifyController = require('../controllers/notifyController')
+const subscriptController = require('../controllers/subscriptController')
 const passport = require('../config/passport')
 const authenticated = passport.authenticate('jwt', { session: false })
 
