@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     sendTime: DataTypes.DATE,
     ServiceId: DataTypes.INTEGER,
     sendNum: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    failNum: DataTypes.INTEGER
   }, {});
   HistoricalMessage.associate = function (models) {
     HistoricalMessage.belongsTo(models.Service)
