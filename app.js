@@ -9,12 +9,12 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const options = {
-  definition: {
-    swagger: '2.0', // Specification (optional, defaults to swagger: '2.0')
+  swaggerDefinition: {
+    openapi: '3.0.0',
     info: {
       title: 'LINE-Notify-Platform', // Title (required)
       version: '1.0.0', // Version (required)
-    },
+    }
   },
   // Path to the API docs
   apis: ['./api-docs/swagger.yaml'],

@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: LINE Notify Platform
+  description: RESTful API document for LINE Notify Server
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /api/signin:
+    post:
+      description: 使用者登入
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: root@example.com
+                password: 12345678
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  token:
+                    type: string
+                  user:
+                    $ref: "#/components/schemas/User"
+                example:
+                  status: success
+                  message: ok
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  user:
+                    id: 1
+                    name: root
+                    email: root@example.com
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
