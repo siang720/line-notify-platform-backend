@@ -7,10 +7,6 @@ const subscriptController = require('../controllers/subscriptController')
 const passport = require('../config/passport')
 const authenticated = passport.authenticate('jwt', { session: false })
 
-router.get('/init', authenticated, (req, res) => {
-  return res.json({ message: 'Project init' })
-})
-
 router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)
 router.get('/users/:id', authenticated, userController.getUser)
