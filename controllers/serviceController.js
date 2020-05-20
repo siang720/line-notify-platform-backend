@@ -11,7 +11,7 @@ const serviceController = {
         UserId: req.user.id
       },
       include: [
-        { model: Token, attributes: [[Sequelize.fn('COUNT', 'id'), 'token_num']] }
+        { model: Token }
       ]
     }).then(services => {
       return res.json({ services })
@@ -25,7 +25,9 @@ const serviceController = {
         name: req.body.name,
         clientId: req.body.clientId,
         clientSecret: req.body.clientSecret,
-        UserId: req.user.id
+        UserId: req.user.id,
+        subscriptURL: req.body.subscriptURL,
+        callbackURL: req.body.callbackURL
       }).then(() => {
         res.json({ status: 'success', message: 'service was successfully created' })
       })
