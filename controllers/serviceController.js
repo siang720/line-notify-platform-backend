@@ -61,6 +61,8 @@ const serviceController = {
       service.destroy().then(() => {
         return res.json({ status: 'success', message: 'service was successfully deleted' })
       })
+    }).catch(error => {
+      return res.json({ status: 'error', message: 'fail to delete service' })
     })
   }
 }
