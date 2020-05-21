@@ -60,6 +60,7 @@ const notifyController = {
       where: {
         UserId: req.user.id
       },
+      order: [['createdAt', 'DESC']],
       include: [{ model: Service, attributes: ['name'] }]
     }).then(messages => {
       return res.json({ messages })
