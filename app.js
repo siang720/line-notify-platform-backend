@@ -7,6 +7,8 @@ const port = 3000
 const bodyParser = require('body-parser')
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const multer = require('multer')
+const upload = multer()
 
 const options = {
   swaggerDefinition: {
@@ -26,9 +28,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // cors 的預設為全開放
 app.use(cors())
-
+// for parsing x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
+// for parsing application/json
 app.use(bodyParser.json())
+// for parsing multipart/form-data
+app.use(upload.array());
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
