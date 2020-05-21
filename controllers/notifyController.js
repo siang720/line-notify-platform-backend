@@ -62,7 +62,7 @@ const notifyController = {
       },
       include: [{ model: Service, attributes: ['name'] }]
     }).then(messages => {
-      return res.json(messages)
+      return res.json({ messages })
     })
   }
 }
