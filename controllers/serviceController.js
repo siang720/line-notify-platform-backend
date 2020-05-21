@@ -10,6 +10,7 @@ const serviceController = {
       where: {
         UserId: req.user.id
       },
+      order: [['updatedAt', 'DESC']],
       include: [
         { model: Token }
       ]
@@ -26,10 +27,17 @@ const serviceController = {
         clientId: req.body.clientId,
         clientSecret: req.body.clientSecret,
         UserId: req.user.id,
-        subscriptURL: req.body.subscriptURL,
-        callbackURL: req.body.callbackURL
-      }).then(() => {
-        res.json({ status: 'success', message: 'service was successfully created' })
+        subscriptURL: "",
+        callbackURL: ""
+      }).then(service => {
+        Service.findByPk(service.id).then(service => {
+          service.update({
+            subscriptURL: `https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=${service.clientId}&redirect_uri=${process.env.baseURL}.services/${service.id}/callback&scope=notify&state=state`,
+            callbackURL: `${process.env.baseURL}/services/${service.id}/callback`
+          }).then(service => {
+            res.json({ status: 'success', message: 'service was successfully created', serviceId: service.id })
+          })
+        })
       })
     }
   },
