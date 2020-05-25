@@ -17,5 +17,6 @@ router.put('/services/:id', authenticated, serviceController.putService)
 router.delete('/services/:id', authenticated, serviceController.deleteService)
 router.post('/historicalMessage', authenticated, notifyController.postHistoricalMessage)
 router.get('/historicalMessage', authenticated, notifyController.getHistoricalMessage)
+router.get('/getStatistic', authenticated, notifyController.getStatistic)
 
 module.exports = router;

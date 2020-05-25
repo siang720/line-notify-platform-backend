@@ -4,6 +4,17 @@ const Service = db.Service
 const HistoricalMessage = db.HistoricalMessage
 const rp = require('request-promise')
 
+function addNewChartData(arr) {
+  arr.push({
+    labels: [],
+    datasets: [{
+      label: '',
+      backgroundColor: "#ffa600",
+      data: []
+    }]
+  })
+}
+
 const notifyController = {
   // 發送訊息，同時建立歷史訊息
   postHistoricalMessage: (req, res) => {
@@ -64,6 +75,38 @@ const notifyController = {
       include: [{ model: Service, attributes: ['name'] }]
     }).then(messages => {
       return res.json({ messages })
+    })
+  },
+  getStatistic: (req, res) => {
+    db.sequelize.query(
+      `SELECT his.ServiceId, services.name as name, DATE(his.createdAt) as date, count(his.id) as notifies
+FROM historicalmessages as his LEFT OUTER JOIN services as services
+ON his.ServiceId = services.id
+group by his.ServiceId, date`, { type: db.sequelize.QueryTypes.SELECT }
+    ).then(results => {
+      if (results === null) return res.json({ status: "success", message: 'no history message' })
+      // init chartData array
+      let chartData = []
+      // init object
+      let tmpServiceId = results[0].ServiceId
+      let current = 0
+      addNewChartData(chartData)
+      chartData[current].datasets[0].label = results[0].name
+      // iteration
+      results.forEach(result => {
+        if (result.ServiceId === tmpServiceId) {
+          chartData[current].labels.push(result.date)
+          chartData[current].datasets[0].data.push(result.notifies)
+        } else {
+          addNewChartData(chartData)
+          current += 1
+          tmpServiceId = result.ServiceId
+          chartData[current].labels.push(result.date)
+          chartData[current].datasets[0].label = result.name
+          chartData[current].datasets[0].data.push(result.notifies)
+        }
+      });
+      return res.json(chartData)
     })
   }
 }
