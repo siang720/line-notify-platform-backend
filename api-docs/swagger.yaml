@@ -5,7 +5,7 @@ info:
   description: RESTful API document for LINE Notify Server
 
 servers:
-  - url: http://localhost:3000
+  - url: https://line-notify-platform.herokuapp.com
 
 paths:
   /api/signin:
