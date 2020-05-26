@@ -32,7 +32,7 @@ const serviceController = {
       }).then(service => {
         Service.findByPk(service.id).then(service => {
           service.update({
-            subscriptURL: `https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=${service.clientId}&redirect_uri=${process.env.baseURL}.services/${service.id}/callback&scope=notify&state=state`,
+            subscriptURL: `https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=${service.clientId}&redirect_uri=${process.env.baseURL}/services/${service.id}/callback&scope=notify&state=state`,
             callbackURL: `${process.env.baseURL}/services/${service.id}/callback`
           }).then(service => {
             res.json({ status: 'success', message: 'service was successfully created', serviceId: service.id })
