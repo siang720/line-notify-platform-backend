@@ -72,6 +72,14 @@ const serviceController = {
     }).catch(error => {
       return res.json({ status: 'error', message: 'fail to delete service' })
     })
+  },
+  getServicesSnapshot: (req, res) => {
+    db.sequelize.query(`select Services.Id, services.name, count(tokens.id) tokenNums
+from services 
+LEFT OUTER JOIN tokens ON services.id = tokens.ServiceId
+group by services.Id`, { type: db.sequelize.QueryTypes.SELECT }).then(results => {
+      return res.json(results)
+    })
   }
 }
 
