@@ -35,7 +35,7 @@ const serviceController = {
             subscriptURL: `https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=${service.clientId}&redirect_uri=${process.env.baseURL}/services/${service.id}/callback&scope=notify&state=state`,
             callbackURL: `${process.env.baseURL}/services/${service.id}/callback`
           }).then(service => {
-            res.json({ status: 'success', message: 'service was successfully created', serviceId: service.id })
+            res.json({ status: 'success', message: 'service was successfully created', serviceId: service.id, subscriptURL: service.subscriptURL, callbackURL: service.callbackURL })
           })
         })
       })
@@ -49,9 +49,10 @@ const serviceController = {
         service.update({
           name: req.body.name,
           clientId: req.body.clientId,
-          clientSecret: req.body.clientSecret
+          clientSecret: req.body.clientSecret,
+          subscriptURL: `https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=${req.body.clientId}&redirect_uri=${process.env.baseURL}/services/${service.id}/callback&scope=notify&state=state`
         }).then(service => {
-          return res.json({ status: 'success', message: 'service was successfully update' })
+          return res.json({ status: 'success', message: 'service was successfully update', subscriptURL: service.subscriptURL })
         })
       )
     }
